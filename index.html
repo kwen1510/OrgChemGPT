@@ -7,7 +7,7 @@
 	<h1>OrgChemGPT</h1>
 	<label for="question">Question:</label>
 	<input type="text" id="question" name="question">
-	<button onclick="getResponse()">Submit</button>
+	<button onclick="getResponse()" id="submit-button">Submit</button>
 	<br><br>
     <div id="outputDiv"></div>
 
@@ -19,10 +19,8 @@
             let url = "https://langchain-1-e2345732.deta.app/query/"
 
             outputDiv.innerHTML = `<p style="color: blue;">Thinking...</p>`
-            
-            // console.log(url)
 
-            // console.log(queryString)
+            console.log(queryString)
 
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
