@@ -1,1 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ChemGPT</title>
+</head>
+<body>
+	<h1>ChemGPT</h1>
+	<label for="question">Question:</label>
+	<input type="text" id="question" name="question" value="Why are alkanes unreactive?">
+	<button onclick="getResponse()">Submit</button>
+	<br><br>
+    <div id="outputDiv"></div>
 
+	<script>
+		function getResponse() {
+			let question = document.getElementById("question").value;
+
+            question = question.replaceAll(" ", "%20")
+
+			let url = "https://langchain-1-e2345732.deta.app/items/" + question;
+
+			fetch(url, { mode: 'no-cors' })
+				.then(response => console.log(response.json()))
+				.then(data => {
+                    console.log(data)
+					let outputBox = document.getElementById("outputDiv");
+					outputBox.innerHTML = data.text;
+				})
+				.catch(error => {
+					let outputBox = document.getElementById("outputDiv");
+					outputBox.innerHTML = "Error: " + error.message;
+				});
+		}
+	</script>
+</body>
+</html>
