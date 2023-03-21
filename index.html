@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>ChemGPT</title>
+	<title>OrgChemGPT</title>
 </head>
 <body>
-	<h1>ChemGPT</h1>
+	<h1>OrgChemGPT</h1>
 	<label for="question">Question:</label>
 	<input type="text" id="question" name="question" value="Why are alkanes unreactive?">
 	<button onclick="getResponse()">Submit</button>
@@ -14,17 +14,19 @@
 	<script>
 		function getResponse() {
 			let queryString = document.getElementById("question").value;
+            let outputDiv = document.getElementById("outputDiv")
 
             let url = "https://langchain-1-e2345732.deta.app/query/"
 
-            console.log(url)
+            outputDiv.innerHTML = <p style="color: blue;">Thinking...</p>
+            
+            // console.log(url)
 
-            console.log(queryString)
+            // console.log(queryString)
 
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
-            myHeaders.append("Content-Type", "application/x-www-form-urlencoded")
-
+            
             var raw = JSON.stringify({
                 "query_string": queryString
             });
@@ -32,15 +34,14 @@
             var requestOptions = {
                 method: 'POST',
                 headers: myHeaders,
-                mode: 'no-cors',
                 body: raw,
                 redirect: 'follow'
             };
 
             fetch(url, requestOptions)
-                .then(response => response.text())
-                // .then(result => responseBox.innerHTML = result)
-                .then(result => console.log(result))
+                .then(response => response.json())
+                .then(result => outputDiv.innerHTML = result.text)
+                // .then(result => console.log(result))
                 .catch(error => console.log('error', error));
 
 
